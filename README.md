@@ -2,6 +2,21 @@ The purpose of this document is to gather all evidence and materials regarding S
 
 There's a lot of ground to cover, so let's get going.
 
+- [x] [Making SVG](#making-svg)
+
+- [ ] SVG in the web page
+  - [x] Displaying SVG
+  - [x] Data URI
+  - [ ] SVG System
+  - [ ] SVG Optimization
+  - [ ] SVG Accessibility
+  
+- [ ] SVG Animation
+  - [ ] CSS Animation
+  - [ ] SMIL Animation
+  - [ ] JS and Libraries
+
+
 # Making SVG
 
 There are a few pieces of software out there to create and edit SVG files. Sure you can manufacture SVG directly through HTML tags, but for the ease of implementation, these tools are helpful in the learning stages.
@@ -12,7 +27,10 @@ Once saved, you can open the SVG file in any text editor. The final result may l
 
 Looking at the code behind the SVG is nevertheless useful to get acquainted with its syntax and the role of the different attributes.
 
-# Displaying SVG
+
+# SVG in the web page
+
+## Displaying SVG 
 
 To include SVG files in your document there are multiple, available routes. Each has some advantages on their side, and I'll spend a line or two on each option, right after the list of all possibilities.
 
@@ -183,3 +201,114 @@ As it will be explained later, it is possible to gather multiple SVG inline file
 
 Finally, there are other HTML elements which allow to include SVG files in the web page (object, iframe, embed), but I find the mentioned alternatives to be much easier to understand, implement and manage.
 
+## Data URI
+
+The `<img>` and `background` approaches accept a reference to the SVG file. That being said, both alternatives can also include an encoded string which directly references the syntax of the asset, much alike with SVG included inline.
+
+All that is required is to include the following string before injecting the SVG syntax, in a single line argument.
+
+```
+data:image/svg+xml;utf8,
+```
+
+This syntax is nested in the `src` attribute of an image element or in the URL of a `background` property.
+
+```HTML
+<img src='data:image/svg+xml;utf8,<svg>...</svg>'/>
+```
+
+```CSS
+.container {
+  background: url('data:image/svg+xml;utf8,<svg>...</svg>');
+}
+```
+
+Allowing the inclusion of the SVG asset without HTTP request or direct reference to a local path. 
+
+One issue with this approach is that the call is to reside on a single line, without return carriage signs. Moreover, the SVG syntax is set to use quotes in the different attributes it accepts. As the `src` attribute for the image, or the `background` property make use of quotes themselves, you can either escape all SVG quotes or use single quotes for one and double quotes for the other.
+
+## SVG Set
+
+Including SVG inline allows to directly interact with the SVG, its components and all their respective properties. That being said, including each SVG file with all the connected syntax may result in a not-so-sustainable HTML structure.
+
+What can be done with this regard is split the SVG declaration from its use. Simply put:
+
+- declare in a block of code all SVG files, with all connected attributes and often verbose syntax;
+
+- use each file as needed, with a simpler HTML structure.
+
+The split is allowed thanks to the tags of `<defs>` and `<use>`, as will be shortly explained.
+
+**Define SVG Set**
+
+At the top of the `<body>` element, it is possible to build an SVG set by placing `<defs>` tags inside of a wrapping `<svg>` element. 
+  
+To avoid the browser from pre-emptively occupying space, a property of `display:none;` is specified for this wrapping element. Without it, the browser will allocate the required space, without actually populating the space with SVG assets, resulting in unnecessary white space. 
+  
+```HTML
+<body>
+<svg style="display:none;">
+  <defs>
+  
+  </defs>
+</svg>
+
+</body>
+```
+
+Inside the defining tags, any and all SVG assets are included with their syntax. Include here `<g>`, `<path>` elements which describe the different graphics.
+
+Each graphic should contain the following attributes:
+
+- id;
+
+- viewbox.
+
+The former is required to later reference each graphic separately, while the latter is a defining attribute which describes the space occupied by the SVG (literally, the viewbox in which the SVG graphic is crafted).
+
+With a couple of examplary SVG files, the defs block looks as follows:
+
+```HTML
+<svg style="display:none;">
+  <defs>
+
+   <g id="timer-icon" viewBox="0 0 26.458 26.458" transform="translate(-31.082 -144.97)">
+    <rect transform="matrix(.73691 -.67599 .65904 .75211 0 0)" x="-72.427" y="131.57" width="3.6309" height="2.1467" fill="#fff" stroke-width=".39495"/>
+    <path transform="matrix(.26458 0 0 .26458 31.082 144.97)" d="m50 0a50 50 0 0 0-50 50 50 50 0 0 0 50 50 50 50 0 0 0 50-50 50 50 0 0 0-50-50zm0 9.7012a40.299 40.299 0 0 1 40.299 40.299 40.299 40.299 0 0 1-40.299 40.299 40.299 40.299 0 0 1-40.299-40.299 40.299 40.299 0 0 1 40.299-40.299z" fill="#fff" stroke-width="1.97"/>
+    <circle transform="rotate(141.82)" cx="62.947" cy="-151.75" r="10.514" fill="none" stroke="#fff" stroke-dasharray="1.8678617, 3.73572337" stroke-width=".46697"/>
+    <path d="m44.214 148.57 0.88034 9.6044-1.5663 0.0197z" fill="#fff" stroke-width=".28933"/>
+    <circle transform="rotate(141.82)" cx="62.947" cy="-151.75" r="10.063" fill="none" stroke="#fff" stroke-dasharray="1.78778218, 3.57556438" stroke-width=".44695"/>
+   </g>
+
+
+  <g id="heart-icon" viewBox="0 0 5.2917 5.2917" transform="translate(-68.595 -111.29)">
+   <g transform="matrix(2.8714 0 0 3.0436 -128.37 -238.24)">
+    <path transform="matrix(.092144 0 0 .086931 68.595 114.84)" d="m14.037-0.013672 0.001953 0.0019531c-1.5769 0.057517-3.1759 0.76063-4.4277 2.0879-0.024961 0.023007-0.047305 0.057071-0.072266 0.080078l-0.0039063-0.0019531-0.074219 0.080078c-2.4637-1.8384-5.7468-1.7084-7.8086 0.47656v0.0019531c-2.3294 2.469-2.1911 6.5923 0.3125 9.2461 0.024961 0.023007 0.055117 0.047522 0.080078 0.082032l-0.0039063 0.001953 7.4902 7.9395 0.91992-0.97461 0.001953 0.00586 7.4902-7.9414-0.001953-0.001954c0.026046-0.023006 0.053164-0.045568 0.078125-0.080078 2.5037-2.6538 2.6438-6.779 0.31445-9.248-1.1647-1.2344-2.7199-1.8161-4.2969-1.7559zm-2.2246 5.5195c0.71225-0.027608 1.4154 0.2331 1.9414 0.79102 1.0522 1.1153 0.98826 2.979-0.14258 4.1777-0.010551 0.011184-0.021541 0.023973-0.033203 0.035157l-3.3828 3.5879-0.001953-0.001953-0.41602 0.43945-3.3828-3.5859c-0.010722-0.011184-0.022652-0.023973-0.033203-0.035157-1.1309-1.1988-1.1947-3.0619-0.14258-4.1777 0.93136-0.98699 2.4145-1.0454 3.5273-0.21484l0.033203-0.035156 0.0019531 0.0019531c0.011938-0.011503 0.020398-0.023653 0.03125-0.035156 0.56542-0.59933 1.2877-0.90885 2-0.94336v-0.0039062z" fill="#f55" stroke-width=".47444"/>
+   </g>
+  </g>
+
+ </defs>
+</svg>
+```
+
+The code may be verbose, but is indeed separate from the HTML structure of the page which follows. Structure which is more easily manipulated through the `<use>` tags.
+
+
+**Use SVG Assets**
+
+Once declared and give an identifier, each SVG graphic can be easily injected in the page. All that is required is to nest `<use>` tags in an SVG element.
+
+The SVG element ought to have an attribute of `viewbox` matching in value with the attribute specified in the defs block. The `<use>` tags instead benefit from the `xlink:href` attribute, which is used to target the identified SVG.
+
+
+Using an SVG from the examplary defs block, for instance, the implementation of the SVG looks as follows:
+
+```
+<svg class="heart-icon" viewBox="0 0 5.2917 5.2917">
+  <use xlink:href="#heart-icon"></use>
+</svg>
+```
+
+Which is a definite improvement in terms of read-ability.
+
+The SVG set is therefore really useful, both in terms of separating logical steps (declare first, use later), and in terms of providing concise, more sustainable code.
