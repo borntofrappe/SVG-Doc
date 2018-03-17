@@ -169,11 +169,13 @@ To include SVG files in your document there are multiple, available routes. Each
 **SVG Inline**: as mentioned, the SVG files are often text intensive. This is where optimization tools come into play. After the SVG tags are "cleaned up" of unnecessary elements, the SVG elements are drastically improved. 
 
 
-Out of the mentioned opportunities the `<img>` approach is the easiest to implement. Epecially with a local project, it is possible to reference the SVG by path. It is then possible to style the image element in CSS like any HTML element. This with the added benefit of having a sharp-looking asset.
+Out of the mentioned opportunities 
 
-The `background` option is useful to lay the SVG asset beneath the content of the HTML element.
+- the `<img>` approach is the easiest to implement. Epecially with a local project, it is possible to reference the SVG by path. It is then possible to style the image element in CSS like any HTML element. This with the added benefit of having a sharp-looking asset.
 
-The `inline` route allows to have direct control on the SVG as a whole as well as its components. Moreover, the HTML document *does not* go through an additional HTTP request. The file is inside the document and there is no need to "fetch" it.
+- the `background` option is useful to lay the SVG asset beneath the content of the HTML element.
+
+- the `inline` route allows to have direct control on the SVG as a whole as well as its components. Moreover, the HTML document *does not* go through an additional HTTP request. The file is inside the document and there is no need to "fetch" it.
 
 Personally, unless the SVG is included purely for aesthetics, I opt to include SVG assets inline. Otherwise, the `<img>` element is a quick and easy way to include SVG graphics.
 
