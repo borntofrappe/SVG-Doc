@@ -206,7 +206,7 @@ The `<img>` and `background` approaches accept a reference to the SVG file. That
 
 All that is required is to include the following string before injecting the SVG syntax, in a single line argument.
 
-```
+```HTML
 data:image/svg+xml;utf8,
 ```
 
@@ -302,7 +302,7 @@ The SVG element ought to have an attribute of `viewbox` matching in value with t
 
 Using an SVG from the examplary defs block, for instance, the implementation of the SVG looks as follows:
 
-```
+```HTML
 <svg class="heart-icon" viewBox="0 0 5.2917 5.2917">
   <use xlink:href="#heart-icon"></use>
 </svg>
