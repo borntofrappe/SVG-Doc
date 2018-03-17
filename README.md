@@ -7,7 +7,7 @@ There's a lot of ground to cover, so let's get going.
 - [ ] SVG in the web page
   - [x] Displaying SVG
   - [x] Data URI
-  - [ ] SVG System
+  - [x] SVG System
   - [ ] SVG Optimization
   - [ ] SVG Accessibility
   
@@ -184,10 +184,9 @@ To include SVG files in your document there are multiple, available routes. Each
 
 **Background**: the HTML elment needs to have a width and height in order to display the SVG. You need to here be careful with the size of the container and the measures of the SVG, which are specified in the SVG file under the attributes of width and height. You may end up with an SVG that is either cropped or repeated, if the element is too small, too big in comparison to the SVG.
  
-**SVG Inline**: as mentioned, the SVG files are often text intensive. This is where optimization tools come into play. After the SVG tags are "cleaned up" of unnecessary elements, the SVG elements are drastically improved. 
+**SVG Inline**: as mentioned, the SVG files are often text intensive. This is where an SVG set and optimization tools come into play. After the SVG structure is "cleaned up" of unnecessary elements and presented in a concise set, inline SVG elements are drastically improved. 
 
-
-Out of the mentioned opportunities 
+Out of the mentioned opportunities:
 
 - the `<img>` approach is the easiest to implement. Epecially with a local project, it is possible to reference the SVG by path. It is then possible to style the image element in CSS like any HTML element. This with the added benefit of having a sharp-looking asset.
 
