@@ -1,6 +1,6 @@
-The purpose of this document is to gather all evidence and materials regarding SVG. How to make them, how to include them in a web page, how to animate them.
+All about **s**harp **v**ector **g**raphics: making, including in a web page, animating SVG. 
 
-There's a lot of ground to cover, so let's get going.
+# Index
 
 - [x] [Making SVG](#making-svg)
 
@@ -19,12 +19,13 @@ There's a lot of ground to cover, so let's get going.
 
 # Making SVG
 
-There are a few pieces of software out there to create and edit SVG files. Sure you can manufacture SVG directly through HTML tags, but for the ease of implementation, these tools are helpful in the learning stages.
+There is more than one software out there to create and edit SVG files. Theoretically you can manufacture SVG directly through HTML tags, but for the ease of implementation, these tools are helpful in the learning stages. (more on this later)
 
-I personally use [Inkscape](https://inkscape.org/en/), you may prefer [Illustrator](https://www.adobe.com/products/illustrator.html), [Sketch](https://www.sketchapp.com/) or any other tool. The important trait that all software should share is the following: you can create and edit your own concoction and save it in an SVG format.
+I personally use [Inkscape](https://inkscape.org/en/), you may prefer [Illustrator](https://www.adobe.com/products/illustrator.html), [Sketch](https://www.sketchapp.com/) or any other tool. The important trait that all software should share is the following: *you can create and edit your own concoction and save it in an SVG format*.
 
-Once saved, you can open the SVG file in any text editor. The final result may look a little heavy on text, especially heavy on tags and lines which don't seem to serve a purpose. You can either remove them manually or use a tool to optimize your creation (optimization tools are discussed in a later section).
+Once saved, you can open the SVG file in any text editor. The final result may look a little heavy on text, especially heavy on tags and lines which don't seem to serve a purpose. 
 
+You can either remove them manually or use a tool to optimize your creation (optimization tools are discussed in a later section).
 Looking at the code behind the SVG is nevertheless useful to get acquainted with its syntax and the role of the different attributes.
 
 
@@ -32,11 +33,11 @@ Looking at the code behind the SVG is nevertheless useful to get acquainted with
 
 ## Displaying SVG 
 
-To include SVG files in your document there are multiple, available routes. Each has some advantages on their side, and I'll spend a line or two on each option, right after the list of all possibilities.
+To include SVG files in your document there are multiple, available routes. Each has some advantages on their side, and I'll spend a line or two on each option, right after the list of possibilities.
 
 - `<img>` HTML element.
 
-  You can reference an SVG file directly in the `src` attribute of an image element.
+  An SVG file can be directly referenced in the `src` attribute of an image element.
 
   ```HTML
   <img src="svg-doc.svg"/>
@@ -54,12 +55,10 @@ To include SVG files in your document there are multiple, available routes. Each
   
 - `<svg>` HTML element.
 
-  It is possible to directly inject the SVG file in the HTML document. Simply open the SVG in a text editor, copy-paste the syntax you find in between body tags.
+  Back in HTML, it is possible to directly inject the SVG file in the document. Simply open the SVG in a text editor, copy-paste the syntax you find in between body tags.
 
   ```HTML
   <body>
-    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
     <svg
        xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -177,18 +176,19 @@ To include SVG files in your document there are multiple, available routes. Each
         </g>
       </g>
     </svg>
+    
   </body>
   ```
 
 ### Considerations
 
-**Background**: the HTML elment needs to have a width and height in order to display the SVG. You need to here be careful with the size of the container and the measures of the SVG, which are specified in the SVG file under the attributes of width and height. You may end up with an SVG that is either cropped or repeated, if the element is too small, too big in comparison to the SVG.
+**Background**: the HTML elment needs to have a specified `width` and `height` in order to correctly display the SVG. You need to here be careful with the size of the container and the measures of the SVG, which are specified in the SVG file under the attributes of `width` and `height`. You may end up with an SVG that is either cropped or repeated, if the HTML element is too small or too big in comparison to the SVG.
  
 **SVG Inline**: as mentioned, the SVG files are often text intensive. This is where an SVG set and optimization tools come into play. After the SVG structure is "cleaned up" of unnecessary elements and presented in a concise set, inline SVG elements are drastically improved. 
 
 Out of the mentioned opportunities:
 
-- the `<img>` approach is the easiest to implement. Epecially with a local project, it is possible to reference the SVG by path. It is then possible to style the image element in CSS like any HTML element. This with the added benefit of having a sharp-looking asset.
+- the `<img>` approach is the easiest to implement. Epecially with a local project, it is possible to reference the SVG by path. It is then possible to style the image element in CSS like any HTML element. This with the added benefit of having a sharp-looking graphic.
 
 - the `background` option is useful to lay the SVG asset beneath the content of the HTML element.
 
@@ -196,9 +196,9 @@ Out of the mentioned opportunities:
 
 Personally, unless the SVG is included purely for aesthetics, I opt to include SVG assets inline. Otherwise, the `<img>` element is a quick and easy way to include SVG graphics.
 
-As it will be explained later, it is possible to gather multiple SVG inline files together in an SVG system, declaring all files in one place and using them later as needed. This route allows to maintain read-able HTML while preserving the possibilities of inline SVG.
+As it will be explained later, it is possible to gather multiple SVG inline files together in an SVG system, declaring all files in one place and using them later as needed. This practice, along with other optimization options, allows to maintain read-able HTML while preserving the possibilities of inline SVG.
 
-Finally, there are other HTML elements which allow to include SVG files in the web page (object, iframe, embed), but I find the mentioned alternatives to be much easier to understand, implement and manage.
+Finally, there are other HTML elements which allow to include SVG files in the web page (`object`, `iframe`, `embed`), but I find the mentioned alternatives to be much easier to understand, implement and manage.
 
 ## Data URI
 
@@ -224,17 +224,21 @@ This syntax is nested in the `src` attribute of an image element or in the URL o
 
 Allowing the inclusion of the SVG asset without HTTP request or direct reference to a local path. 
 
-One issue with this approach is that the call is to reside on a single line, without return carriage signs. Moreover, the SVG syntax is set to use quotes in the different attributes it accepts. As the `src` attribute for the image, or the `background` property make use of quotes themselves, you can either escape all SVG quotes or use single quotes for one and double quotes for the other.
+**Potential Issues**: the call to the SVG needs to be included in a single line, without carriage returns. Moreover, the SVG syntax uses quotes for the different attributes it accepts. As the `src` attribute, or the `background` property, makes use of quotes itself, you can either escape all SVG quotes or use single quotes for one and double quotes for the other.
+
+```HTML
+<img src='data:image/svg+xml;utf8,<svg width="500px">...</svg>'/>
+```
 
 ## SVG Set
 
-Including SVG inline allows to directly interact with the SVG, its components and all their respective properties. That being said, including each SVG file with all the connected syntax may result in a not-so-sustainable HTML structure.
+Including SVG inline allows to directly interact with the SVG, its components and all their respective properties. That being said, including each SVG file with all the connected syntax may result an HTML structure which is difficult to ready and hardly sustainable.
 
 What can be done with this regard is split the SVG declaration from its use. Simply put:
 
-- declare in a block of code all SVG files, with all connected attributes and often verbose syntax;
+- declare all SVG files in a common block, with all connected attributes and often verbose syntax;
 
-- use each file as needed, with a simpler HTML structure.
+- use each file as needed, with a simplified tags.
 
 The split is allowed thanks to the tags of `<defs>` and `<use>`, as will be shortly explained.
 
@@ -242,10 +246,11 @@ The split is allowed thanks to the tags of `<defs>` and `<use>`, as will be shor
 
 At the top of the `<body>` element, it is possible to build an SVG set by placing `<defs>` tags inside of a wrapping `<svg>` element. 
   
-To avoid the browser from pre-emptively occupying space, a property of `display:none;` is specified for this wrapping element. Without it, the browser will allocate the required space, without actually populating the space with SVG assets, resulting in unnecessary white space. 
+To avoid the browser from pre-emptively occupying space, a property of `display:none;` is specified for this wrapping element. Without it, the browser will allocate space reuired by the SVG(s), without actually displaying the SVG assets, resulting in unnecessary white space. 
   
 ```HTML
 <body>
+
 <svg style="display:none;">
   <defs>
   
@@ -255,7 +260,7 @@ To avoid the browser from pre-emptively occupying space, a property of `display:
 </body>
 ```
 
-Inside the defining tags, any and all SVG assets are included with their syntax. Include here `<g>`, `<path>` elements which describe the different graphics.
+Inside the defining tags, any and all SVG assets are then included with their syntax. Include here `<g>`, `<path>` elements which describe the different graphics.
 
 Each graphic should contain the following attributes:
 
@@ -263,7 +268,7 @@ Each graphic should contain the following attributes:
 
 - viewbox.
 
-The former is required to later reference each graphic separately, while the latter is a defining attribute which describes the space occupied by the SVG (literally, the viewbox in which the SVG graphic is crafted).
+The former is required to later reference each graphic when needed, while the latter is a defining attribute which describes the space occupied by the SVG (literally, the viewbox in which the SVG graphic is crafted). It is therefore possible to gather multiple SVG assets with different structures, in terms of viewbox as well. 
 
 With a couple of examplary SVG files, the defs block looks as follows:
 
@@ -295,16 +300,17 @@ The code may be verbose, but is indeed separate from the HTML structure of the p
 
 **Use SVG Assets**
 
-Once declared and give an identifier, each SVG graphic can be easily injected in the page. All that is required is to nest `<use>` tags in an SVG element.
+Once declared and given an identifier, each SVG graphic can be easily injected in the page. All that is required is to nest `<use>` tags in a wrapping SVG element.
 
-The SVG element ought to have an attribute of `viewbox` matching in value with the attribute specified in the defs block. The `<use>` tags instead benefit from the `xlink:href` attribute, which is used to target the identified SVG.
+The SVG element ought to have an attribute of `viewbox` matching in value with the attribute specified in the defs block. The `<use>` tags instead benefit from the `href` attribute, which is used to target the identified SVG.
 
+**Small note**: in the old implementation for the `<use>` tags, the attribute referencing the SVG asset was `xlink:href`. With the new Web Standard, the attribute was simplified to a more common name, `href`.
 
-Using an SVG from the examplary defs block, for instance, the implementation of the SVG looks as follows:
+Using an SVG from the examplary `defs` block, for instance, the implementation of the SVG looks as follows:
 
 ```HTML
 <svg class="heart-icon" viewBox="0 0 5.2917 5.2917">
-  <use xlink:href="#heart-icon"></use>
+  <use href="#heart-icon"></use>
 </svg>
 ```
 
