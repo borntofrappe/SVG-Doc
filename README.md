@@ -326,7 +326,7 @@ The inclusion of an SVG set helps improving the read-ability of the code, but th
 
 Optimization practices allow to reduce this risk by streamlining the structure of the SVG syntax. It is here possible to remove attributes included by the SVG editor which serve no purpose in the HTML document. Above all, it is possible to present the SVG syntax in a more compact format.
 
-**Inkscape save as**
+### Inkscape Save as
 
 Inkscape has a built-in functionality which allows to save a concise SVG file. Instead of simply saving the file as-is, the dropdown menu next to `Save as type` offers in fact the option to save as `Optimized SVG`. 
 
@@ -336,7 +336,7 @@ In the "SVG Output" tab it is also possible to remove XML declaration, metadata 
 
 It is a more manual approach than the following possibility, but one method which allows to better understand how the editor works and which SVG tags are essential for the correct rendering in a web page.
 
-**SVGO**
+## SVGO
 
 *Small note*: for the command-line program, Node.js is required to run the detailed prompt.
 
@@ -364,6 +364,8 @@ It is also possible to target multiple SVG files, simply by space separating the
 It is always paramount to 1) include the file extension and 2) reference the right path to the file (practically running the prompt in the folder in which the file reside is helpful).
 
 A small example will remark the sensible improvements hereby presented.
+
+**Evidence**
 
 - saving a simple icon without optimization produces the following result:
 
