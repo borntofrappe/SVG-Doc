@@ -363,9 +363,9 @@ It is also possible to target multiple SVG files, simply by space separating the
 
 It is always paramount to 1) include the file extension and 2) reference the right path to the file (practically running the prompt in the folder in which the file reside is helpful).
 
-A small example will remark the sensible improvements hereby presented.
-
 **Evidence**
+
+A small example will remark the sensible improvements hereby presented.
 
 - saving a simple icon without optimization produces the following result:
 
