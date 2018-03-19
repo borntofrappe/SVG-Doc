@@ -1,14 +1,14 @@
-All about **s**harp **v**ector **g**raphics: making, including in a web page, animating SVG. 
+All about **S**harp **V**ector **G**raphics: making, including in a web page, animating SVG. 
 
 # Index
 
 - [x] [Making SVG](#making-svg)
 
-- [ ] SVG in the web page
-  - [x] Displaying SVG
-  - [x] Data URI
-  - [x] SVG System
-  - [ ] SVG Optimization
+- [ ] SVG in the web page(#svg-in-the-web-page)
+  - [x] [Displaying SVG](#displaying-svg)
+  - [x] [Data URI](#data-uri)
+  - [x] [SVG System Set](#svg-system-set)
+  - [x] [SVG Optimization](#svg-optimization)
   - [ ] SVG Accessibility
   
 - [ ] SVG Animation
@@ -230,7 +230,7 @@ Allowing the inclusion of the SVG asset without HTTP request or direct reference
 <img src='data:image/svg+xml;utf8,<svg width="500px">...</svg>'/>
 ```
 
-## SVG Set
+## SVG System Set
 
 Including SVG inline allows to directly interact with the SVG, its components and all their respective properties. That being said, including each SVG file with all the connected syntax may result an HTML structure which is difficult to ready and hardly sustainable.
 
@@ -317,3 +317,152 @@ Using an SVG from the examplary `defs` block, for instance, the implementation o
 Which is a definite improvement in terms of read-ability.
 
 The SVG set is therefore really useful, both in terms of separating logical steps (declare first, use later), and in terms of providing concise, more sustainable code.
+
+## SVG Optimization
+
+As mentioned, SVG syntax is often bloated with unnecessary attributes and, especially for more complex concoctions, expands itself in an almost outrageous amount of code lines.
+
+The inclusion of an SVG set helps improving the read-ability of the code, but the "defs" block defining each asset is still heavy on and difficult-to-comprehend text; with multiple graphics, the risk of a minor error messing up the whole system becomes quite high.
+
+Optimization practices allow to reduce this risk by streamlining the structure of the SVG syntax. It is here possible to remove attributes included by the SVG editor which serve no purpose in the HTML document. Above all, it is possible to present the SVG syntax in a more compact format.
+
+### Inkscape Save as
+
+Inkscape has a built-in functionality which allows to save a concise SVG file. Instead of simply saving the file as-is, the dropdown menu next to `Save as type` offers in fact the option to save as `Optimized SVG`. 
+
+With this selection, the output can be customized as to shorten the length of the SVG, for instance by reducing the precision used for the coordinates of the graphic.
+
+In the "SVG Output" tab it is also possible to remove XML declaration, metadata and comments, removing the default and unnecessary tags.
+
+It is a more manual approach than the following possibility, but one method which allows to better understand how the editor works and which SVG tags are essential for the correct rendering in a web page.
+
+## SVGO
+
+*Small note*: for the command-line program, Node.js is required to run the detailed prompt.
+
+[SVGO](https://github.com/svg/svgo) allows to change SVG files in an extremely concise format, and in a more automatic approach than the previous alternative.
+
+It also allows to reduce an entire SVG file to a single line. This option may be a little cumbersome when trying to visualize how an SVG file is built, but it is accomplished to further reduce the file size. The improvements in this dimension are remarked (often surpassing the 50% mark of size reduction).
+
+Once installed through the command line:
+
+```
+npm install -g svgo
+```
+
+SVGO optimizes SVG files through one of following commands:
+
+|Command|Effect|
+|---|---|
+|`$ svgo file.svg`|Optimize the referenced file, changing the input to the concise format|
+|`$ svgo file.svg another-file.svg`|Optimize the referenced files, changing both inputs to the respective concise format|
+|`$ svgo file.svg -o file-output.svg`|Save the concise format in a new file, without altering the input|
+|`$ svgo *.svg`|Optimize all SVG files referenced file, changing the inputs to the respective concise format|
+
+It is also possible to target multiple SVG files, simply by space separating their name. 
+
+It is always paramount to 1) include the file extension and 2) reference the right path to the file (practically running the prompt in the folder in which the file reside is helpful).
+
+**Evidence**
+
+A small example will remark the sensible improvements hereby presented.
+
+- saving a simple icon without optimization produces the following result:
+
+
+```HTML
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458 26.458"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="star-icon.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata14">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="2.36"
+     inkscape:cx="50"
+     inkscape:cy="50"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <g
+     transform="translate(0,-270.542)"
+     id="g6">
+    <rect
+       rx="1.306"
+       ry="1.944"
+       y="270.54199"
+       height="26.458"
+       width="26.458"
+       id="rect2"
+       x="0"
+       style="fill:#69cfde" />
+    <path
+       d="m 4.46,281.75 h 6.71 l 2.066,-6.606 2.052,6.595 6.71,-0.031 -5.441,4.077 2.08,6.586 -5.415,-4.075 -5.423,4.102 2.094,-6.596 z"
+       id="path4"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff" />
+  </g>
+</svg>
+```
+
+- selecting the option of saving the file as Optimized SVG, as mentioned, produces the following result:
+
+```HTML
+<svg width="100" height="100" version="1.1" viewBox="0 0 26.458 26.458" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0 -270.54)">
+  <rect y="270.54" width="26.458" height="26.458" rx="1.306" ry="1.944" fill="#69cfde"/>
+  <path d="m4.46 281.75h6.71l2.066-6.606 2.052 6.595 6.71-0.031-5.441 4.077 2.08 6.586-5.415-4.075-5.423 4.102 2.094-6.596z" fill="#fff"/>
+ </g>
+</svg>
+```
+
+- running a command-line prompt with svgo, `$ svgo icon.svg` , the un-optimized file is altered to the following format:
+
+
+```HTML
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 26.458 26.458"><g transform="translate(0 -270.542)"><rect rx="1.306" ry="1.944" y="270.542" height="26.458" width="26.458" fill="#69cfde"/><path d="M4.46 281.75h6.71l2.066-6.606 2.052 6.595 6.71-.031-5.441 4.077 2.08 6.586-5.415-4.075-5.423 4.102 2.094-6.596z" fill="#fff"/></g></svg>
+```
+
+Reducing the file size by a whopping 81%.
+
+With the inclusion of one of this methods, alongside the construction of an SVG set, SVG inline become a much more manageable, sustainable alternative. This with the added benefit of having direct control on the SVG files and their components.
+
+## SVG Accessibility
+
+
