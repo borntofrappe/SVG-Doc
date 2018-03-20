@@ -1,4 +1,4 @@
-All about **S**harp **V**ector **G**raphics: making, including in a web page, animating SVG. 
+All about **S**harp **V**ector **G**raphics. 
 
 # Index
 
@@ -9,7 +9,7 @@ All about **S**harp **V**ector **G**raphics: making, including in a web page, an
   - [x] [Data URI](#data-uri)
   - [x] [SVG System Set](#svg-system-set)
   - [x] [SVG Optimization](#svg-optimization)
-  - [ ] SVG Accessibility
+  - [x] [SVG Accessibility](#svg-accessibility)
   
 - [ ] SVG Animation
   - [ ] CSS Animation
@@ -465,4 +465,63 @@ With the inclusion of one of this methods, alongside the construction of an SVG 
 
 ## SVG Accessibility
 
+SVG have already a positive impact on accessibility by their own nature. Graphics indeed maintain their resolution regardless of width and height values of SVG assets, resulting in sharp-looking images on all screen sizes.
 
+That being said, there are also several practices which aid accessibility even further. These are centered on inline SVG, and tags and attributes which can be included in the HTML document.
+
+## `<title>` and `<description>`
+
+Nested in the SVG tags, it is possible to specify a title and a description for the graphic, directly through the tags with the same names. These are useful element to specify not only the substance behind the SVG, but even its purpose.
+
+```HTML
+<svg>
+  <title id="title">Icon of a timer</title>
+  <desc id="description">Timer icon used to start a countdown clock</desc>
+  <path.../>
+</svg>
+```
+
+In the wrapping SVG element, it is furthermore possible to reference these values throgh *aria* attributes (attributes primed for accessibility). The attributes in question are `aria-labelledby` and `aria-describedby`, each referencing the HTML elements by identifier (there's no need of a pound sign in the referenced ID).
+
+```HTML
+<svg aria-labelledby="title" aria-describedby="description">
+  <title id="title">Icon of a timer</title>
+  <desc id="description">Timer icon used to start a countdown clock</desc>
+  <path.../>
+</svg>
+```
+
+## Focus-able SVG
+
+Especially for keyboard-only users, you may want to make an SVG, or portions of it, focus-able like an anchor link. 
+
+To make the elements accessible in this dimension, all that is required is to wrap the target to be focused in anchor link tags. Just like you'd wrap `<img>` tags.
+
+```HTML
+<svg aria-labelledby="title" aria-describedby="description">
+  <title id="title">Icon of a timer</title>
+  <desc id="description">Timer icon used to start a countdown clock</desc>
+  <!-- make the SVG path focus-able through keyword -->
+  <a href="#" class="focusable-path">
+    <path.../>
+  </a>
+  
+</svg>
+```
+
+The first version of SVG made here use of the attribute of `xlink:href`, but like a previous mention, this choice is being dropped in favour of the more common `href`.
+
+## SVG Role
+
+With accessibility in mind, also consider the inclusion of a role attribute in the wrapping SVG. MDN has a helpful collection of the values which the attribute can [assume](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques). For most cases, as the SVG are used for graphics, you can include a role of image.
+
+```HTML
+<svg aria-labelledby="title" aria-describedby="description" role="img">
+  <title id="title">Icon of a timer</title>
+  <desc id="description">Timer icon used to start a countdown clock</desc>
+  
+  <a href="#" class="focusable-path">
+    <path.../>
+  </a>
+</svg>
+```
