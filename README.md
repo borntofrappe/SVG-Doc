@@ -511,7 +511,7 @@ To make the elements accessible in this dimension, all that is required is to wr
 
 The first version of SVG made here use of the attribute of `xlink:href`, but like a previous mention, this choice is being dropped in favour of the more common `href`.
 
-##SVG Role
+## SVG Role
 
 With accessibility in mind, also consider the inclusion of a role attribute in the wrapping SVG. MDN has a helpful collection of the values which the attribute can [assume](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques). For most cases, as the SVG are used for graphics, you can include a role of image.
 
